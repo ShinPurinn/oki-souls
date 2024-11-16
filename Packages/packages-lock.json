@@ -238,7 +238,7 @@
       "url": "https://packages.unity.com"
     },
     "com.veriorpies.parrelsync": {
-      "version": "file:C:/Users/ASUS ROG/Downloads/ParrelSync-master/ParrelSync",
+      "version": "file:C:/ParrelSync-master/ParrelSync",
       "depth": 0,
       "source": "local",
       "dependencies": {}
