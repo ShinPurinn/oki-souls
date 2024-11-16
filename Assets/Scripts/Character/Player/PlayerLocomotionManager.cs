@@ -4,15 +4,8 @@ using UnityEngine;
 
 public class PlayerLocomotionManager : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
+    public void HandleAllMovement()
     {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
+        // Handle movements (grounded, aerial, etc)
     }
 }
