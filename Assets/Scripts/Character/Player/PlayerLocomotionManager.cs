@@ -52,7 +52,7 @@ public class PlayerLocomotionManager : CharacterLocomotionManager
             // instead of moveDirection * speed * deltaTime (Vector3*float, Vector3*float)
             player.characterController.Move(runningSpeed * Time.deltaTime * moveDirection);
         }
-        else if (PlayerInputManager.instance.moveAmount <= 0.5f)
+        else if (PlayerInputManager.instance.moveAmount <= 0.5f && PlayerInputManager.instance.moveAmount != 0)
         {
             // Move at walking speed
             player.characterController.Move(walkingSpeed * Time.deltaTime * moveDirection);
