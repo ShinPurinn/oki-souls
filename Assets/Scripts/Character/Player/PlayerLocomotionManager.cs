@@ -10,8 +10,10 @@ public class PlayerLocomotionManager : CharacterLocomotionManager
     public float moveAmount;
 
     private Vector3 moveDirection;
+    private Vector3 targetrotationDirection;
     [SerializeField] float walkingSpeed = 2;
     [SerializeField] float runningSpeed = 5;
+    [SerializeField] float rotationSpeed = 15;
     
     protected override void Awake()
     {
@@ -23,6 +25,7 @@ public class PlayerLocomotionManager : CharacterLocomotionManager
     {
         // Grounded movement
         HandleGroundedMovement();
+        HandleRotation();
     }
 
     private void GetVerticalAndHorizontalMovement()
@@ -37,9 +40,9 @@ public class PlayerLocomotionManager : CharacterLocomotionManager
     {
         GetVerticalAndHorizontalMovement();
         // Movement direction based on camera FOV perspective & movement inputs
-        moveDirection.y = 0;
         moveDirection = PlayerCamera.instance.transform.forward * verticalMovement;
         moveDirection += PlayerCamera.instance.transform.right * horizontalMovement;
+        moveDirection.y = 0;
         moveDirection.Normalize();
 
         if (PlayerInputManager.instance.moveAmount > 0.5f)
@@ -54,5 +57,23 @@ public class PlayerLocomotionManager : CharacterLocomotionManager
             // Move at walking speed
             player.characterController.Move(walkingSpeed * Time.deltaTime * moveDirection);
         }
+    }
+
+    private void HandleRotation()
+    {
+        targetrotationDirection = Vector3.zero;
+        targetrotationDirection = PlayerCamera.instance.cameraObject.transform.forward * verticalMovement;
+        targetrotationDirection += PlayerCamera.instance.cameraObject.transform.right * horizontalMovement;
+        targetrotationDirection.y = 0;
+        targetrotationDirection.Normalize();
+
+        if (targetrotationDirection == Vector3.zero)
+        {
+            targetrotationDirection = transform.forward;
+        }
+
+        Quaternion newRotation = Quaternion.LookRotation(targetrotationDirection);
+        Quaternion targetRotation = Quaternion.Slerp(transform.rotation, newRotation, rotationSpeed * Time.deltaTime);
+        transform.rotation = targetRotation;
     }
 }

@@ -10,6 +10,11 @@ public class CharacterNetworkManager : NetworkBehaviour
     (Vector3.zero,
     NetworkVariableReadPermission.Everyone,
     NetworkVariableWritePermission.Owner);
+    public NetworkVariable<Quaternion> networkRotation = new NetworkVariable<Quaternion>
+    (Quaternion.identity,
+    NetworkVariableReadPermission.Everyone,
+    NetworkVariableWritePermission.Owner);
     public Vector3 networkPositionVelocity;
     public float networkPositionSmoothTime = 0.1f;
+    public float networkRotationSmoothTime = 0.1f;
 }

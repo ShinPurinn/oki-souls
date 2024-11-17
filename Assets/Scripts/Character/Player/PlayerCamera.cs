@@ -5,6 +5,7 @@ using UnityEngine;
 public class PlayerCamera : MonoBehaviour
 {
     public static PlayerCamera instance;
+    public Camera cameraObject;
 
     public void Awake()
     {
@@ -22,5 +23,5 @@ public class PlayerCamera : MonoBehaviour
     {
         DontDestroyOnLoad(gameObject);
     }
-    
+
 }

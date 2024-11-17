@@ -315,6 +315,11 @@ MonoBehaviour:
   m_DeselectOnBackgroundClick: 1
   m_PointerBehavior: 0
   m_CursorLockBehavior: 0
+--- !u!20 &499412167 stripped
+Camera:
+  m_CorrespondingSourceObject: {fileID: 1138730845990347489, guid: 065640452e46f9a47927d6fc4a082d16, type: 3}
+  m_PrefabInstance: {fileID: 6186095642826742064}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &705507993
 GameObject:
   m_ObjectHideFlags: 0
@@ -1560,6 +1565,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Player Camera
       objectReference: {fileID: 0}
+    - target: {fileID: 6978713350253781755, guid: 065640452e46f9a47927d6fc4a082d16, type: 3}
+      propertyPath: cameraObject
+      value: 
+      objectReference: {fileID: 499412167}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
