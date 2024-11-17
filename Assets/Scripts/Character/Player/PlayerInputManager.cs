@@ -9,6 +9,9 @@ public class PlayerInputManager : MonoBehaviour
     // Read values of keyboard
     PlayerControls playerControls;
     [SerializeField] Vector2 movementInput;
+    public float verticalInput;
+    public float horizontalInput;
+    public float moveAmount;
 
     private void Awake()
     {
@@ -59,5 +62,45 @@ public class PlayerInputManager : MonoBehaviour
     {
         // If the object is destroyed, remove the event
         SceneManager.activeSceneChanged -= OnSceneChange;
+    }
+
+    // If the app is minimized or not on focus, stop adjusting inputs
+    private void OnApplicationFocus(bool focus)
+    {
+        if (enabled)
+        {
+            if (focus)
+            {
+                playerControls.Enable();
+            }
+            else
+            {
+                playerControls.Disable();
+            }
+        }
+    }
+
+    private void Update()
+    {
+        HandleMovementInput();
+    }
+
+    private void HandleMovementInput()
+    {
+        verticalInput = movementInput.y;
+        horizontalInput = movementInput.x;
+
+        // Return absolute number (positive)
+        moveAmount = Mathf.Clamp01(Mathf.Abs(verticalInput) + Mathf.Abs(horizontalInput));
+
+        // Clamp movement values to 0, 0.5, or 1
+        if (moveAmount <= 0.5 && moveAmount > 0)
+        {
+            moveAmount = 0.5f;
+        }
+        else if (moveAmount > 0.5 && moveAmount <= 1)
+        {
+            moveAmount = 1;
+        }
     }
 }
