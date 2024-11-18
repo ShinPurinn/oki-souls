@@ -68,13 +68,13 @@ PrefabInstance:
       addedObject: {fileID: 8837167539412127436}
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 14df923b9101bb14abca861595b99a5f, type: 3}
       insertIndex: -1
-      addedObject: {fileID: -1829460920479493794}
-    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 14df923b9101bb14abca861595b99a5f, type: 3}
-      insertIndex: -1
       addedObject: {fileID: 5411563765563413510}
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 14df923b9101bb14abca861595b99a5f, type: 3}
       insertIndex: -1
       addedObject: {fileID: 8485642233011888051}
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 14df923b9101bb14abca861595b99a5f, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: -1978974707530944526}
   m_SourcePrefab: {fileID: 100100000, guid: 14df923b9101bb14abca861595b99a5f, type: 3}
 --- !u!1 &2165455228837761411 stripped
 GameObject:
@@ -93,7 +93,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d5a57f767e5e46a458fc5d3c628d0cbb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  GlobalObjectIdHash: 2697471309
+  GlobalObjectIdHash: 955322567
   InScenePlacedSourceGlobalObjectIdHash: 955322567
   AlwaysReplicateAsRoot: 0
   SynchronizeTransform: 1
@@ -115,25 +115,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   characterController: {fileID: 0}
---- !u!114 &-1829460920479493794
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2165455228837761411}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6f0111f86a613284ab7222f2fb99a31d, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  networkPosition:
-    m_InternalValue: {x: 0, y: 0, z: 0}
-  networkRotation:
-    m_InternalValue: {x: 0, y: 0, z: 0, w: 1}
-  networkPositionVelocity: {x: 0, y: 0, z: 0}
-  networkPositionSmoothTime: 0.1
-  networkRotationSmoothTime: 0.1
 --- !u!114 &5411563765563413510
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -178,3 +159,22 @@ CharacterController:
   m_SkinWidth: 0.08
   m_MinMoveDistance: 0.001
   m_Center: {x: 0, y: 0.72, z: 0}
+--- !u!114 &-1978974707530944526
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2165455228837761411}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6f0111f86a613284ab7222f2fb99a31d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  networkPosition:
+    m_InternalValue: {x: 0, y: 0, z: 0}
+  networkRotation:
+    m_InternalValue: {x: 0, y: 0, z: 0, w: 1}
+  networkPositionVelocity: {x: 0, y: 0, z: 0}
+  networkPositionSmoothTime: 0.1
+  networkRotationSmoothTime: 0.1

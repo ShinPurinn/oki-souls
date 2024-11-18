@@ -39,7 +39,7 @@ public class PlayerLocomotionManager : CharacterLocomotionManager
     private void HandleGroundedMovement()
     {
         GetVerticalAndHorizontalMovement();
-        // Movement direction based on camera FOV perspective & movement inputs
+        // Movement direction based on camera FOV perspective & movement inputs 
         moveDirection = PlayerCamera.instance.transform.forward * verticalMovement;
         moveDirection += PlayerCamera.instance.transform.right * horizontalMovement;
         moveDirection.y = 0;
@@ -57,6 +57,7 @@ public class PlayerLocomotionManager : CharacterLocomotionManager
             // Move at walking speed
             player.characterController.Move(walkingSpeed * Time.deltaTime * moveDirection);
         }
+        Debug.Log($"[PlayerLocomotion] Local Position: {transform.position}");
     }
 
     private void HandleRotation()
