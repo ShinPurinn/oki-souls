@@ -24,7 +24,6 @@ public class CharacterManager : NetworkBehaviour
         {
             characterNetworkManager.networkPosition.Value = transform.position;
             characterNetworkManager.networkRotation.Value = transform.rotation;
-            Debug.Log($"[Owner] Updating NetworkPosition to: {transform.position}");
         }
         // If the character is being controlled from somewhere else, then assign its position here locally by the position of its network transform
         else
@@ -36,7 +35,7 @@ public class CharacterManager : NetworkBehaviour
                 ref characterNetworkManager.networkPositionVelocity,
                 characterNetworkManager.networkPositionSmoothTime
             );
-            Debug.Log($"[Non-Owner] NetworkPosition value: {characterNetworkManager.networkPosition.Value}");
+            
             // Rotation
             transform.rotation = Quaternion.Slerp(
                 transform.rotation,

@@ -57,7 +57,6 @@ public class PlayerLocomotionManager : CharacterLocomotionManager
             // Move at walking speed
             player.characterController.Move(walkingSpeed * Time.deltaTime * moveDirection);
         }
-        Debug.Log($"[PlayerLocomotion] Local Position: {transform.position}");
     }
 
     private void HandleRotation()
