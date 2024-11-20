@@ -1496,7 +1496,7 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: b3d6101387cf35642835c7ded91bc858, type: 3}
---- !u!1001 &6186095642826742064
+--- !u!1001 &8417679261781509919
 PrefabInstance:
   m_ObjectHideFlags: 0
   serializedVersion: 2
@@ -1504,6 +1504,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 121903594254687132, guid: 065640452e46f9a47927d6fc4a082d16, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -3
+      objectReference: {fileID: 0}
     - target: {fileID: 2703746191850352975, guid: 065640452e46f9a47927d6fc4a082d16, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
@@ -1546,7 +1550,19 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3908925931958032456, guid: 065640452e46f9a47927d6fc4a082d16, type: 3}
       propertyPath: m_Name
-      value: Player Camera
+      value: Player Camera(Left & Right)
+      objectReference: {fileID: 0}
+    - target: {fileID: 4518010835343780446, guid: 065640452e46f9a47927d6fc4a082d16, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0.3
+      objectReference: {fileID: 0}
+    - target: {fileID: 4518010835343780446, guid: 065640452e46f9a47927d6fc4a082d16, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6978713350253781755, guid: 065640452e46f9a47927d6fc4a082d16, type: 3}
+      propertyPath: collideWithLayers.m_Bits
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -1564,4 +1580,4 @@ SceneRoots:
   - {fileID: 6156782251585503140}
   - {fileID: 4846769310275936197}
   - {fileID: 5554150657984474835}
-  - {fileID: 6186095642826742064}
+  - {fileID: 8417679261781509919}
