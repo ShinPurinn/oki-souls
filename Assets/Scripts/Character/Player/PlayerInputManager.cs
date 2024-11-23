@@ -6,6 +6,7 @@ using UnityEngine.SceneManagement;
 public class PlayerInputManager : MonoBehaviour
 {
     public static PlayerInputManager instance;
+    public PlayerManager player;
     // Read values of keyboard
     PlayerControls playerControls;
 
@@ -111,10 +112,18 @@ public class PlayerInputManager : MonoBehaviour
         {
             moveAmount = 1;
         }
+        if(player==null)
+            return;
+
+        player.PlayerAnimatorManager.UpdateAnimatorMovementParameters(0, moveAmount);
     }
 
     private void HandleCameraMovementInput(){
         cameraVerticalInput = cameraInput.y;
         cameraHorizontalInput = cameraInput.x;
     }
+
+    
 }
+
+
