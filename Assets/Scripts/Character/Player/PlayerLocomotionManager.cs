@@ -5,6 +5,7 @@ using UnityEngine;
 public class PlayerLocomotionManager : CharacterLocomotionManager
 {
     PlayerManager player;
+    
     public float verticalMovement;
     public float horizontalMovement;
     public float moveAmount;
@@ -20,6 +21,25 @@ public class PlayerLocomotionManager : CharacterLocomotionManager
         base.Awake();
         player = GetComponent<PlayerManager>();
     }
+
+    protected override void Update(){
+        base.Update();
+
+        if(player.IsOwner){
+             player.characterNetworkManager.verticalMovement.Value = verticalMovement;
+             player.characterNetworkManager.horizontalMovement.Value = horizontalMovement;
+             player.characterNetworkManager.moveAmount.Value = moveAmount;
+        }
+        else{
+            verticalMovement = player.characterNetworkManager.verticalMovement.Value;
+            horizontalMovement = player.characterNetworkManager.horizontalMovement.Value;
+            moveAmount = player.characterNetworkManager.moveAmount.Value;
+            //if not locked on, pass the amount
+            player.PlayerAnimatorManager.UpdateAnimatorMovementParameters(0, moveAmount);
+
+            //if locked on , pass the hor and ver
+        }
+    }
     
     public void HandleAllMovement()
     {
@@ -32,7 +52,7 @@ public class PlayerLocomotionManager : CharacterLocomotionManager
     {
         verticalMovement = PlayerInputManager.instance.verticalInput;
         horizontalMovement = PlayerInputManager.instance.horizontalInput;
-
+        moveAmount = PlayerInputManager.instance.moveAmount;
         // Clamp movements
     }
 
