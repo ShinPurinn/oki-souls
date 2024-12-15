@@ -9,7 +9,7 @@ public class ConversationStarter : MonoBehaviour
 
     private void OnTriggerStay(Collider other)
     {
-        if (other.CompareTag("Untagged"))
+        if (other.CompareTag("Player"))
         {
             if (Input.GetKeyDown(KeyCode.F))
             {
