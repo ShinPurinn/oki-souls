@@ -16,7 +16,7 @@
                 },
                 {
                     "name": "ToggleRun",
-                    "type": "Button",
+                    "type": "PassThrough",
                     "id": "09baaf1f-cfd2-4a83-9ca4-e8b8ac3c9ee4",
                     "expectedControlType": "Button",
                     "processors": "",
@@ -84,7 +84,7 @@
                     "name": "",
                     "id": "47ef50af-a704-433b-9174-7e4d93dc2d77",
                     "path": "<Keyboard>/leftShift",
-                    "interactions": "",
+                    "interactions": "Hold",
                     "processors": "",
                     "groups": "",
                     "action": "ToggleRun",
@@ -101,7 +101,7 @@
                     "name": "Movement",
                     "type": "PassThrough",
                     "id": "7b56e0c7-5f00-44e1-b342-c50e4d6b1e20",
-                    "expectedControlType": "Vector2",
+                    "expectedControlType": "Delta",
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": false
@@ -131,7 +131,16 @@
                     "id": "3f11c1ee-f78f-4093-9e02-ae7ebd1c4963",
                     "expectedControlType": "Button",
                     "processors": "",
-                    "interactions": "",
+                    "interactions": "Tap",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "Sprint",
+                    "type": "PassThrough",
+                    "id": "67031e4d-e509-406e-9eea-116698adc3a9",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "Hold",
                     "initialStateCheck": false
                 }
             ],
@@ -144,6 +153,17 @@
                     "processors": "",
                     "groups": "",
                     "action": "Dodge",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "bb6dc471-e905-4f94-b914-d18ca402ce29",
+                    "path": "<Keyboard>/shift",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Sprint",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

@@ -23,6 +23,7 @@ public class PlayerInputManager : MonoBehaviour
 
     [Header("PLAYER ACTION INPUT")]
     [SerializeField] bool dodgeInput = false;
+    [SerializeField] bool sprintInput = false;
 
     private void Awake()
     {
@@ -66,6 +67,11 @@ public class PlayerInputManager : MonoBehaviour
             playerControls.PlayerMovement.Movement.performed += i => movementInput = i.ReadValue<Vector2>();
             playerControls.PlayerCamera.Movement.performed += i => cameraInput = i.ReadValue<Vector2>();
             playerControls.PlayerActions.Dodge.performed += i => dodgeInput = true;
+
+            // HOLDING THE INPUT, SET THE BOOL TO TRUE
+            playerControls.PlayerActions.Sprint.performed += i => sprintInput = true;
+            // RELEASING THE INPUT, SET THE BOOL TO FALSE
+            playerControls.PlayerActions.Sprint.canceled += i => sprintInput = false;
         }
 
         playerControls.Enable();
@@ -102,6 +108,7 @@ public class PlayerInputManager : MonoBehaviour
         HandlePlayerMovementInput();
         HandleCameraMovementInput();
         HandleDodgeInput(); 
+        HandleSprinting();
     }
 
     // MOVEMENT
@@ -125,7 +132,7 @@ public class PlayerInputManager : MonoBehaviour
         if(player==null)
             return;
 
-        player.PlayerAnimatorManager.UpdateAnimatorMovementParameters(0, moveAmount);
+        player.PlayerAnimatorManager.UpdateAnimatorMovementParameters(0, moveAmount, player.playerNetworkManager.isSprinting.Value);
     }
 
     private void HandleCameraMovementInput(){
@@ -139,6 +146,15 @@ public class PlayerInputManager : MonoBehaviour
             dodgeInput = false;
             //PERFORM DODGE
             player.playerLocomotionManager.AttemptToPerformDodge ();
+        }
+    }
+
+    private void HandleSprinting(){
+        if(sprintInput){
+            player.playerLocomotionManager.HandleSprinting();
+        }
+        else {
+            player.playerNetworkManager.isSprinting.Value = false;
         }
     }
 }

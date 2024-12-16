@@ -15,6 +15,7 @@ public class PlayerLocomotionManager : CharacterLocomotionManager
     private Vector3 targetrotationDirection;
     [SerializeField] float walkingSpeed = 2;
     [SerializeField] float runningSpeed = 5;
+    [SerializeField] float sprintingSpeed = 6.5f;
     [SerializeField] float rotationSpeed = 15;
 
     [Header("Dodge")]
@@ -39,7 +40,7 @@ public class PlayerLocomotionManager : CharacterLocomotionManager
             horizontalMovement = player.characterNetworkManager.horizontalMovement.Value;
             moveAmount = player.characterNetworkManager.moveAmount.Value;
             //if not locked on, pass the amount
-            player.PlayerAnimatorManager.UpdateAnimatorMovementParameters(0, moveAmount);
+            player.PlayerAnimatorManager.UpdateAnimatorMovementParameters(0, moveAmount, player.playerNetworkManager.isSprinting.Value);
 
             //if locked on , pass the hor and ver
         }
@@ -72,7 +73,11 @@ public class PlayerLocomotionManager : CharacterLocomotionManager
         moveDirection.y = 0;
         moveDirection.Normalize();
 
-        if (PlayerInputManager.instance.moveAmount > 0.5f)
+        if (player.playerNetworkManager.isSprinting.Value){
+            player.characterController.Move(sprintingSpeed * Time.deltaTime * moveDirection);
+        }
+        else {
+            if (PlayerInputManager.instance.moveAmount > 0.5f)
         {
             // Move at running speed
             // (Micro-Optimization) It is faster to calculate speed * deltaTime * moveDirection (float*float, float*Vector3)
@@ -84,6 +89,8 @@ public class PlayerLocomotionManager : CharacterLocomotionManager
             // Move at walking speed
             player.characterController.Move(walkingSpeed * Time.deltaTime * moveDirection);
         }
+        }
+
     }
 
     private void HandleRotation()
@@ -104,6 +111,23 @@ public class PlayerLocomotionManager : CharacterLocomotionManager
         Quaternion newRotation = Quaternion.LookRotation(targetrotationDirection);
         Quaternion targetRotation = Quaternion.Slerp(transform.rotation, newRotation, rotationSpeed * Time.deltaTime);
         transform.rotation = targetRotation;
+    }
+
+    public void HandleSprinting(){
+        if (player.isPerformingAction){
+            player.playerNetworkManager.isSprinting.Value = false;
+        }
+
+        //IF WE ARE OUT OF STAMINA, SET SPRINTING TO FALSE
+
+        //IF WE ARE MOVING SPRINTING IS TRUE
+        if (moveAmount >= 0.5){
+            player.playerNetworkManager.isSprinting.Value = true;
+        }
+        //IF WEW ARE STATIONARY OR MOVING SLOWLY SPRINTING IS FALSE
+        else {
+            player.playerNetworkManager.isSprinting.Value = false;
+        }
     }
 
 
@@ -128,7 +152,7 @@ public class PlayerLocomotionManager : CharacterLocomotionManager
         }
 
         else{
-
+            player.PlayerAnimatorManager.PlayTargetActionAnimation("Roll_Backward_01", true, true);
         }
     }
 }
