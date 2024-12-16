@@ -109,21 +109,24 @@ public class PlayerLocomotionManager : CharacterLocomotionManager
 
     public void AttemptToPerformDodge(){
 
-        if(player.isPerformingAction){
+        if(player.isPerformingAction)
+        {
             return;
         }
 
-        if (PlayerInputManager.instance.moveAmount > 0){
+        if (PlayerInputManager.instance.moveAmount > 0)
+        {
         rollDirection = PlayerCamera.instance.cameraObject.transform.forward * PlayerInputManager.instance.verticalInput;
         rollDirection += PlayerCamera.instance.cameraObject.transform.right * PlayerInputManager.instance.horizontalInput;
-
-        rollDirection.Normalize();
         rollDirection.y = 0;
+        rollDirection.Normalize();
+
         Quaternion playerRotation = Quaternion.LookRotation(rollDirection);
         player.transform.rotation = playerRotation;
 
         player.PlayerAnimatorManager.PlayTargetActionAnimation("Roll_Forward_01", true, true);
         }
+
         else{
 
         }

@@ -10,18 +10,18 @@ public class PlayerInputManager : MonoBehaviour
     // Read values of keyboard
     PlayerControls playerControls;
 
+    [Header("CAMERA MOVEMENT INPUT")]
+    [SerializeField] Vector2 cameraInput;
+    public float cameraVerticalInput;
+    public float cameraHorizontalInput;
+
     [Header("PLAYER MOVEMENT INPUT")]
     [SerializeField] Vector2 movementInput;
     public float verticalInput;
     public float horizontalInput;
     public float moveAmount;
 
-    [Header("CAMERA MOVEMENT INPUT")]
-    [SerializeField] Vector2 cameraInput;
-    public float cameraVerticalInput;
-    public float cameraHorizontalInput;
-
-    [Header("PLAYE DODGE INPUT")]
+    [Header("PLAYER ACTION INPUT")]
     [SerializeField] bool dodgeInput = false;
 
     private void Awake()
@@ -103,6 +103,8 @@ public class PlayerInputManager : MonoBehaviour
         HandleCameraMovementInput();
         HandleDodgeInput(); 
     }
+
+    // MOVEMENT
     private void HandlePlayerMovementInput()
     {
         verticalInput = movementInput.y;
@@ -131,6 +133,7 @@ public class PlayerInputManager : MonoBehaviour
         cameraHorizontalInput = cameraInput.x;
     }
 
+    // ACTION
     private void HandleDodgeInput(){
         if(dodgeInput){
             dodgeInput = false;
