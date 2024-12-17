@@ -124,6 +124,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 14df923b9101bb14abca861595b99a5f, type: 3}
       insertIndex: -1
       addedObject: {fileID: -5837011038005021839}
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 14df923b9101bb14abca861595b99a5f, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 2102613868697631770}
   m_SourcePrefab: {fileID: 100100000, guid: 14df923b9101bb14abca861595b99a5f, type: 3}
 --- !u!1 &2165455228837761411 stripped
 GameObject:
@@ -172,6 +175,7 @@ MonoBehaviour:
   applyRootMotion: 0
   PlayerAnimatorManager: {fileID: 0}
   playerLocomotionManager: {fileID: 0}
+  playerNetworkManager: {fileID: 0}
 --- !u!114 &5411563765563413510
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -189,6 +193,7 @@ MonoBehaviour:
   moveAmount: 0
   walkingSpeed: 2
   runningSpeed: 5
+  sprintingSpeed: 6.5
   rotationSpeed: 15
 --- !u!143 &8485642233011888051
 CharacterController:
@@ -240,6 +245,8 @@ MonoBehaviour:
   animatorVerticalParameter:
     m_InternalValue: 0
   networkMoveAmount:
+    m_InternalValue: 0
+  isSprinting:
     m_InternalValue: 0
   horizontalMovement:
     m_InternalValue: 0
@@ -367,3 +374,15 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!114 &2102613868697631770
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2165455228837761411}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9409fb27fa4b8954399f57594639839a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
