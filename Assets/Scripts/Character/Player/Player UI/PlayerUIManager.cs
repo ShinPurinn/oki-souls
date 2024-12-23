@@ -10,6 +10,8 @@ public class PlayerUIManager : MonoBehaviour
     [Header("NETWORK JOIN")]
     [SerializeField] bool startGameAsClient;
 
+    [HideInInspector] public PlayerUIHudManager playerUIHudManager;
+
     private void Awake()
     {
         // only one instance of this script can exist at a time, if another exists, destroy it -cliff
@@ -21,6 +23,8 @@ public class PlayerUIManager : MonoBehaviour
         {
             Destroy(gameObject);
         }
+
+        playerUIHudManager = GetComponentInChildren<PlayerUIHudManager>();
     }
 
     private void Start()

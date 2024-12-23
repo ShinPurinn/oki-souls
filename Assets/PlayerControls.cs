@@ -38,7 +38,7 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
                 },
                 {
                     ""name"": ""ToggleRun"",
-                    ""type"": ""Button"",
+                    ""type"": ""PassThrough"",
                     ""id"": ""09baaf1f-cfd2-4a83-9ca4-e8b8ac3c9ee4"",
                     ""expectedControlType"": ""Button"",
                     ""processors"": """",
@@ -106,7 +106,7 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
                     ""name"": """",
                     ""id"": ""47ef50af-a704-433b-9174-7e4d93dc2d77"",
                     ""path"": ""<Keyboard>/leftShift"",
-                    ""interactions"": """",
+                    ""interactions"": ""Hold"",
                     ""processors"": """",
                     ""groups"": """",
                     ""action"": ""ToggleRun"",
@@ -123,7 +123,7 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
                     ""name"": ""Movement"",
                     ""type"": ""PassThrough"",
                     ""id"": ""7b56e0c7-5f00-44e1-b342-c50e4d6b1e20"",
-                    ""expectedControlType"": ""Vector2"",
+                    ""expectedControlType"": ""Delta"",
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
@@ -153,7 +153,16 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
                     ""id"": ""3f11c1ee-f78f-4093-9e02-ae7ebd1c4963"",
                     ""expectedControlType"": ""Button"",
                     ""processors"": """",
-                    ""interactions"": """",
+                    ""interactions"": ""Tap"",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Sprint"",
+                    ""type"": ""PassThrough"",
+                    ""id"": ""67031e4d-e509-406e-9eea-116698adc3a9"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": ""Hold"",
                     ""initialStateCheck"": false
                 }
             ],
@@ -166,6 +175,17 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""groups"": """",
                     ""action"": ""Dodge"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""bb6dc471-e905-4f94-b914-d18ca402ce29"",
+                    ""path"": ""<Keyboard>/shift"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Sprint"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 }
@@ -184,6 +204,7 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
         // Player Actions
         m_PlayerActions = asset.FindActionMap("Player Actions", throwIfNotFound: true);
         m_PlayerActions_Dodge = m_PlayerActions.FindAction("Dodge", throwIfNotFound: true);
+        m_PlayerActions_Sprint = m_PlayerActions.FindAction("Sprint", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -346,11 +367,13 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
     private readonly InputActionMap m_PlayerActions;
     private List<IPlayerActionsActions> m_PlayerActionsActionsCallbackInterfaces = new List<IPlayerActionsActions>();
     private readonly InputAction m_PlayerActions_Dodge;
+    private readonly InputAction m_PlayerActions_Sprint;
     public struct PlayerActionsActions
     {
         private @PlayerControls m_Wrapper;
         public PlayerActionsActions(@PlayerControls wrapper) { m_Wrapper = wrapper; }
         public InputAction @Dodge => m_Wrapper.m_PlayerActions_Dodge;
+        public InputAction @Sprint => m_Wrapper.m_PlayerActions_Sprint;
         public InputActionMap Get() { return m_Wrapper.m_PlayerActions; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -363,6 +386,9 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
             @Dodge.started += instance.OnDodge;
             @Dodge.performed += instance.OnDodge;
             @Dodge.canceled += instance.OnDodge;
+            @Sprint.started += instance.OnSprint;
+            @Sprint.performed += instance.OnSprint;
+            @Sprint.canceled += instance.OnSprint;
         }
 
         private void UnregisterCallbacks(IPlayerActionsActions instance)
@@ -370,6 +396,9 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
             @Dodge.started -= instance.OnDodge;
             @Dodge.performed -= instance.OnDodge;
             @Dodge.canceled -= instance.OnDodge;
+            @Sprint.started -= instance.OnSprint;
+            @Sprint.performed -= instance.OnSprint;
+            @Sprint.canceled -= instance.OnSprint;
         }
 
         public void RemoveCallbacks(IPlayerActionsActions instance)
@@ -399,5 +428,6 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
     public interface IPlayerActionsActions
     {
         void OnDodge(InputAction.CallbackContext context);
+        void OnSprint(InputAction.CallbackContext context);
     }
 }

@@ -12,10 +12,10 @@ public class ResetActionFlag : StateMachineBehaviour
         character = animator.GetComponent<CharacterManager>();
        }
 
-       character.isPerformingAction = false;
-       character.canRotate = true;
-       character.canMove = true;
-       character.applyRootMotion = false;
+        character.isPerformingAction = false;
+        character.applyRootMotion = false;
+        character.canRotate = true;
+        character.canMove = true;
     }
 
     // OnStateUpdate is called on each Update frame between OnStateEnter and OnStateExit callbacks

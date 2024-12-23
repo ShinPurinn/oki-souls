@@ -10,19 +10,20 @@ public class PlayerInputManager : MonoBehaviour
     // Read values of keyboard
     PlayerControls playerControls;
 
+    [Header("CAMERA MOVEMENT INPUT")]
+    [SerializeField] Vector2 cameraInput;
+    public float cameraVerticalInput;
+    public float cameraHorizontalInput;
+
     [Header("PLAYER MOVEMENT INPUT")]
     [SerializeField] Vector2 movementInput;
     public float verticalInput;
     public float horizontalInput;
     public float moveAmount;
 
-    [Header("CAMERA MOVEMENT INPUT")]
-    [SerializeField] Vector2 cameraInput;
-    public float cameraVerticalInput;
-    public float cameraHorizontalInput;
-
-    [Header("PLAYE DODGE INPUT")]
+    [Header("PLAYER ACTION INPUT")]
     [SerializeField] bool dodgeInput = false;
+    [SerializeField] bool sprintInput = false;
 
     private void Awake()
     {
@@ -66,6 +67,11 @@ public class PlayerInputManager : MonoBehaviour
             playerControls.PlayerMovement.Movement.performed += i => movementInput = i.ReadValue<Vector2>();
             playerControls.PlayerCamera.Movement.performed += i => cameraInput = i.ReadValue<Vector2>();
             playerControls.PlayerActions.Dodge.performed += i => dodgeInput = true;
+
+            // HOLDING THE INPUT, SET THE BOOL TO TRUE
+            playerControls.PlayerActions.Sprint.performed += i => sprintInput = true;
+            // RELEASING THE INPUT, SET THE BOOL TO FALSE
+            playerControls.PlayerActions.Sprint.canceled += i => sprintInput = false;
         }
 
         playerControls.Enable();
@@ -102,7 +108,10 @@ public class PlayerInputManager : MonoBehaviour
         HandlePlayerMovementInput();
         HandleCameraMovementInput();
         HandleDodgeInput(); 
+        HandleSprinting();
     }
+
+    // MOVEMENT
     private void HandlePlayerMovementInput()
     {
         verticalInput = movementInput.y;
@@ -123,7 +132,7 @@ public class PlayerInputManager : MonoBehaviour
         if(player==null)
             return;
 
-        player.PlayerAnimatorManager.UpdateAnimatorMovementParameters(0, moveAmount);
+        player.PlayerAnimatorManager.UpdateAnimatorMovementParameters(0, moveAmount, player.playerNetworkManager.isSprinting.Value);
     }
 
     private void HandleCameraMovementInput(){
@@ -131,11 +140,21 @@ public class PlayerInputManager : MonoBehaviour
         cameraHorizontalInput = cameraInput.x;
     }
 
+    // ACTION
     private void HandleDodgeInput(){
         if(dodgeInput){
             dodgeInput = false;
             //PERFORM DODGE
             player.playerLocomotionManager.AttemptToPerformDodge ();
+        }
+    }
+
+    private void HandleSprinting(){
+        if(sprintInput){
+            player.playerLocomotionManager.HandleSprinting();
+        }
+        else {
+            player.playerNetworkManager.isSprinting.Value = false;
         }
     }
 }
