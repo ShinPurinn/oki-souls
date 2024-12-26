@@ -3,11 +3,10 @@ using System.Collections.Generic;
 using Unity.Netcode;
 using UnityEngine;
 using UnityEngine.UI;
-
-namespace SG
-{
-    public class TItleScreenManager : MonoBehaviour
+    public class TitleScreenManager : MonoBehaviour
     {
+
+        public static TitleScreenManager instance;
         [Header("Menus")]
         [SerializeField] GameObject titleScreenMainMenu;
         [SerializeField] GameObject titleScreenLoadMenu;
@@ -15,6 +14,23 @@ namespace SG
         [Header("Buttons")]
         [SerializeField] Button loadMenuReturnButton;
         [SerializeField] Button mainMenuLoadGameButton;
+
+        [Header("Pop Ups")]
+        [SerializeField] GameObject noCharacterSlotsPopUp;
+        [SerializeField] Button noCharacterSlotsOkayButton;
+
+
+        private void Awake()
+        {
+            if (instance == null)
+            {
+                instance = this;
+            }
+            else if (instance != this)
+            {
+                Destroy(gameObject);
+            }
+        }
         public void StartNetworkAsHost()
         {
             NetworkManager.Singleton.StartHost();
@@ -22,8 +38,7 @@ namespace SG
 
         public void StartNewGame()
         {
-            WorldSaveGameManager.instance.CreateNewGame();
-            StartCoroutine(WorldSaveGameManager.instance.LoadWorldScene());
+            WorldSaveGameManager.instance.AttemptToCreateNewGame();
         }
 
         public void OpenLoadGameMenu()
@@ -44,5 +59,10 @@ namespace SG
             mainMenuLoadGameButton.Select();
         }
 
+        public void DisplayNoFreeCharacterSlotsPopUp()
+        {
+            noCharacterSlotsPopUp.SetActive(true);
+            noCharacterSlotsOkayButton.Select();
+        }
+
     }
-}

@@ -7,7 +7,7 @@ public class WorldSaveGameManager : MonoBehaviour
 {
     public static WorldSaveGameManager instance;
 
-    [SerializeField] private PlayerManager player;
+    public PlayerManager player;
 
     [Header("Save/Load")]
     [SerializeField] bool saveGame;
@@ -112,10 +112,28 @@ public class WorldSaveGameManager : MonoBehaviour
         return fileName;
     }
 
-    public void CreateNewGame(){
-        saveFileName = DecideCharacterFileNameBasedOnCharacterSlotBeingUsed(currentCharacterSlotBeingUsed);
+    public void AttemptToCreateNewGame(){  
+        saveFileDataWriter.saveFileName = saveFileName;
 
-        currentCharacterData = new CharacterSaveData();
+        saveFileName = DecideCharacterFileNameBasedOnCharacterSlotBeingUsed(CharacterSlot.CharacterSlot_01);
+
+        if(!saveFileDataWriter.CheckToSeeIfFileExists()){
+            currentCharacterSlotBeingUsed = CharacterSlot.CharacterSlot_01;
+            currentCharacterData = new CharacterSaveData();
+            StartCoroutine(LoadWorldScene());
+            return;
+        }
+
+        saveFileName = DecideCharacterFileNameBasedOnCharacterSlotBeingUsed(CharacterSlot.CharacterSlot_02);
+
+        if(!saveFileDataWriter.CheckToSeeIfFileExists()){
+            currentCharacterSlotBeingUsed = CharacterSlot.CharacterSlot_02;
+            currentCharacterData = new CharacterSaveData();
+            StartCoroutine(LoadWorldScene());
+            return;
+        };
+
+        TitleScreenManager.instance.DisplayNoFreeCharacterSlotsPopUp();
     }
 
     public void LoadGame(){
@@ -180,6 +198,9 @@ public class WorldSaveGameManager : MonoBehaviour
     public IEnumerator LoadWorldScene()
     {
         AsyncOperation loadOperation = SceneManager.LoadSceneAsync(worldSceneIndex);
+
+        player.LoadGameDataFromCurrentCharacterData(ref currentCharacterData);
+
         yield return null;
     }
 

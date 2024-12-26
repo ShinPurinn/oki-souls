@@ -3,8 +3,6 @@ using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
 
-namespace SG
-{
     public class UI_Character_Save_Slot : MonoBehaviour
     {
         SaveFileDataWriter saveFileWriter;
@@ -157,5 +155,9 @@ namespace SG
                 }
             }
         }
+
+        public void LoadGameFromCharacterSlot(){
+            WorldSaveGameManager.instance.currentCharacterSlotBeingUsed = characterSlot;
+            WorldSaveGameManager.instance.LoadGame();
+        }
     }
-}
