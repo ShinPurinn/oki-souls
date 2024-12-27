@@ -113,10 +113,12 @@ public class WorldSaveGameManager : MonoBehaviour
     }
 
     public void AttemptToCreateNewGame(){  
+
         saveFileDataWriter.saveFileName = saveFileName;
+        saveFileDataWriter.saveDataDirectoryPath = Application.persistentDataPath;
 
-        saveFileName = DecideCharacterFileNameBasedOnCharacterSlotBeingUsed(CharacterSlot.CharacterSlot_01);
-
+        saveFileDataWriter.saveFileName = DecideCharacterFileNameBasedOnCharacterSlotBeingUsed(CharacterSlot.CharacterSlot_01);
+        
         if(!saveFileDataWriter.CheckToSeeIfFileExists()){
             currentCharacterSlotBeingUsed = CharacterSlot.CharacterSlot_01;
             currentCharacterData = new CharacterSaveData();
@@ -124,7 +126,7 @@ public class WorldSaveGameManager : MonoBehaviour
             return;
         }
 
-        saveFileName = DecideCharacterFileNameBasedOnCharacterSlotBeingUsed(CharacterSlot.CharacterSlot_02);
+        saveFileDataWriter.saveFileName = DecideCharacterFileNameBasedOnCharacterSlotBeingUsed(CharacterSlot.CharacterSlot_02);
 
         if(!saveFileDataWriter.CheckToSeeIfFileExists()){
             currentCharacterSlotBeingUsed = CharacterSlot.CharacterSlot_02;

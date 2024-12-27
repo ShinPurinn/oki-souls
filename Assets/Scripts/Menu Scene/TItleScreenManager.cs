@@ -14,6 +14,7 @@ using UnityEngine.UI;
         [Header("Buttons")]
         [SerializeField] Button loadMenuReturnButton;
         [SerializeField] Button mainMenuLoadGameButton;
+        [SerializeField] Button mainMenuNewGameButton;
 
         [Header("Pop Ups")]
         [SerializeField] GameObject noCharacterSlotsPopUp;
@@ -63,6 +64,12 @@ using UnityEngine.UI;
         {
             noCharacterSlotsPopUp.SetActive(true);
             noCharacterSlotsOkayButton.Select();
+        }
+
+        public void CloseNoFreeCharacterSlotsPopUp()
+        {
+            noCharacterSlotsPopUp.SetActive(false);
+            mainMenuNewGameButton.Select();
         }
 
     }
