@@ -116,18 +116,18 @@ using TMPro;
                 }
             }
             else if (characterSlot == CharacterSlot.CharacterSlot_08)
-            {
-                saveFileWriter.saveFileName = WorldSaveGameManager.instance.DecideCharacterFileNameBasedOnCharacterSlotBeingUsed(characterSlot);
+        {
+            saveFileWriter.saveFileName = WorldSaveGameManager.instance.DecideCharacterFileNameBasedOnCharacterSlotBeingUsed(characterSlot);
 
-                if (saveFileWriter.CheckToSeeIfFileExists())
-                {
-                    characterName.text = WorldSaveGameManager.instance.characterSlots08.characterName;
-                }
-                else
-                {
-                    gameObject.SetActive(false);
-                }
+            if (saveFileWriter.CheckToSeeIfFileExists())
+            {
+                characterName.text = WorldSaveGameManager.instance.characterSlots08.characterName;
             }
+            else
+            {
+                gameObject.SetActive(false);
+            }
+        }
             else if (characterSlot == CharacterSlot.CharacterSlot_09)
             {
                 saveFileWriter.saveFileName = WorldSaveGameManager.instance.DecideCharacterFileNameBasedOnCharacterSlotBeingUsed(characterSlot);
