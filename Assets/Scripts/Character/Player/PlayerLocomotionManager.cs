@@ -29,13 +29,12 @@ public class PlayerLocomotionManager : CharacterLocomotionManager
     [Header("Dodge")]
     private Vector3 rollDirection;
     [SerializeField] float dodgeStaminaCost = 15;
-    [SerializeField] float rollSpeed = 0.25f;
+    [SerializeField] float rollSpeed = 1f;
     
     protected override void Awake()
     {
         base.Awake();
         player = GetComponent<PlayerManager>();
-        Debug.Log("Initial Roll Speed: " + rollSpeed); // Add this line
     }
 
     protected override void Update(){
@@ -173,6 +172,7 @@ public class PlayerLocomotionManager : CharacterLocomotionManager
 
     public void AttemptToPerformDodge()
     {
+
         if (player.isPerformingAction)
         {
             return;
@@ -190,11 +190,8 @@ public class PlayerLocomotionManager : CharacterLocomotionManager
             rollDirection.y = 0;
             rollDirection.Normalize();
 
-            Debug.Log("Roll Forward Direction: " + rollDirection);
-            Debug.Log("Roll Speed: " + rollSpeed);
-
             player.PlayerAnimatorManager.PlayTargetActionAnimation("Roll_Forward_01", true, true);
-            StartCoroutine(SmoothDodgeMovement(rollDirection));
+            StartCoroutine(SmoothDodgeMovement(rollDirection, rollSpeed));
         }
         else
         {
@@ -202,19 +199,16 @@ public class PlayerLocomotionManager : CharacterLocomotionManager
             rollDirection.y = 0;
             rollDirection.Normalize();
 
-            Debug.Log("Roll Backward Direction: " + rollDirection);
-            Debug.Log("Roll Speed: " + rollSpeed);
-
             player.PlayerAnimatorManager.PlayTargetActionAnimation("Roll_Backward_01", true, true);
-            StartCoroutine(SmoothDodgeMovement(rollDirection));
+            StartCoroutine(SmoothDodgeMovement(rollDirection, rollSpeed));
         }
 
         player.playerNetworkManager.currentStamina.Value -= dodgeStaminaCost;
     }
 
-    private IEnumerator SmoothDodgeMovement(Vector3 direction)
+    private IEnumerator SmoothDodgeMovement(Vector3 direction, float rollSpeed)
     {
-        float duration = 0.25f; // Duration of the dodge animation
+        float duration = 0.5f; // Duration of the dodge animation
         float elapsedTime = 0f;
 
         while (elapsedTime < duration)
