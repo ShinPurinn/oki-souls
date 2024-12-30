@@ -22,6 +22,7 @@ public class PlayerLocomotionManager : CharacterLocomotionManager
     [Header("Dodge")]
     private Vector3 rollDirection;
     [SerializeField] float dodgeStaminaCost = 15;
+    [SerializeField] float jumpStaminaCost = 15;
     
     protected override void Awake()
     {
@@ -170,4 +171,41 @@ public class PlayerLocomotionManager : CharacterLocomotionManager
 
         player.playerNetworkManager.currentStamina.Value -= dodgeStaminaCost;
     }
+
+    public void AttemptToPerformJump()
+    {
+        // IF WE ARE PERFORMING A GENERAL ACTION, WE DO NOT WANT TO ALLOW A JUMP (WILL CHANGE WHEN COMBAT IS ADDED)
+        if (player.isPerformingAction)
+        {
+            return;
+        }
+
+        // IF WE ARE OUT OF STAMINA, WE DO NOT WISH TO ALLOW A JUMP
+        if (player.playerNetworkManager.currentStamina.Value <= 0)
+        {
+            return;
+        }
+
+        // IF WE ARE ALREADY IN A JUMP, WE DO NOT WANT TO ALLOW A JUMP AGAIN UNTIL THE CURRENT JUMP HAS FINISHED
+        if (player.isJumping)
+        {
+            return;
+        }
+
+        // IF WE ARE NOT GROUNDED, WE DO NOT WANT TO ALLOW A JUMP
+        if (!player.isGrounded)
+        {
+            return;
+        }
+
+        player.PlayerAnimatorManager.PlayTargetActionAnimation("Main_Jump_Start_01", false);
+
+        player.playerNetworkManager.currentStamina.Value -= jumpStaminaCost;
+    }
+
+    public void ApplyJumpingVelocity()
+    {
+        // APPLY AN UPWARD VELOCITY
+    }
 }
+

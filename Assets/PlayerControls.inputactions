@@ -28,7 +28,7 @@
                 {
                     "name": "WASD",
                     "id": "c2846fef-1396-4de9-84a9-b98ec16d2402",
-                    "path": "2DVector",
+                    "path": "2DVector(mode=2)",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
@@ -135,6 +135,15 @@
                     "initialStateCheck": false
                 },
                 {
+                    "name": "Jump",
+                    "type": "Button",
+                    "id": "585c2b7d-c856-424c-a1ce-33d7bbf8e6f4",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "Tap",
+                    "initialStateCheck": false
+                },
+                {
                     "name": "Sprint",
                     "type": "PassThrough",
                     "id": "67031e4d-e509-406e-9eea-116698adc3a9",
@@ -166,6 +175,17 @@
                     "action": "Sprint",
                     "isComposite": false,
                     "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "f27103f4-789d-497e-aff2-cf28662b6d0f",
+                    "path": "<Keyboard>/space",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Jump",
+                    "isComposite": false,
+                    "isPartOfComposite": false
                 }
             ]
         },
@@ -174,7 +194,7 @@
             "id": "5c63744d-230f-48b1-a7a8-bcb83cd42935",
             "actions": [
                 {
-                    "name": "X",
+                    "name": "Del",
                     "type": "Button",
                     "id": "b2e3c390-ca2e-4917-979b-745d740e7698",
                     "expectedControlType": "Button",
@@ -187,11 +207,11 @@
                 {
                     "name": "",
                     "id": "166f7854-d3d9-400a-b3da-88e2d84f01c2",
-                    "path": "<Keyboard>/x",
+                    "path": "<Keyboard>/delete",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "X",
+                    "action": "Del",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }
