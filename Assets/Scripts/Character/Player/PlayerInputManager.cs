@@ -111,6 +111,7 @@ public class PlayerInputManager : MonoBehaviour
         HandleCameraMovementInput();
         HandleDodgeInput(); 
         HandleSprinting();
+        HandleJumpInput();
     }
 
     // MOVEMENT
