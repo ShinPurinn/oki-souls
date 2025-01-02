@@ -29,7 +29,7 @@ public class PlayerLocomotionManager : CharacterLocomotionManager
     [Header("Dodge")]
     private Vector3 rollDirection;
     [SerializeField] float dodgeStaminaCost = 15;
-    [SerializeField] float rollSpeed = 1f;
+    [SerializeField] float rollSpeed = 5f;
     
     protected override void Awake()
     {
@@ -172,14 +172,17 @@ public class PlayerLocomotionManager : CharacterLocomotionManager
 
     public void AttemptToPerformDodge()
     {
+        float rollSpeed = 6f;
 
         if (player.isPerformingAction)
         {
+            Debug.Log("Cannot roll: performing action");
             return;
         }
 
         if (player.playerNetworkManager.currentStamina.Value <= 0)
         {
+            Debug.Log("Cannot roll: not enough stamina");
             return;
         }
 
@@ -208,7 +211,7 @@ public class PlayerLocomotionManager : CharacterLocomotionManager
 
     private IEnumerator SmoothDodgeMovement(Vector3 direction, float rollSpeed)
     {
-        float duration = 0.5f; // Duration of the dodge animation
+        float duration = direction.z > 0 ? 1f : 0.75f;
         float elapsedTime = 0f;
 
         while (elapsedTime < duration)
