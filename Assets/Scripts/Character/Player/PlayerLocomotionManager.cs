@@ -21,15 +21,15 @@ public class PlayerLocomotionManager : CharacterLocomotionManager
 
     [Header("Jump")]
     [SerializeField] float jumpStaminaCost = 15;
-    [SerializeField] float jumpHeight = 4;
-    [SerializeField] float jumpForwardSpeed = 5;
-    [SerializeField] float freeFallSpeed = 2;
+    [SerializeField] float jumpHeight = 2;
+    [SerializeField] float jumpForwardSpeed = 4;
+    [SerializeField] float freeFallSpeed = 3;
     private Vector3 jumpDirection;
 
     [Header("Dodge")]
     private Vector3 rollDirection;
     [SerializeField] float dodgeStaminaCost = 15;
-    [SerializeField] float rollSpeed = 5f;
+    [SerializeField] float rollSpeed = 1f;
     
     protected override void Awake()
     {
@@ -172,7 +172,7 @@ public class PlayerLocomotionManager : CharacterLocomotionManager
 
     public void AttemptToPerformDodge()
     {
-        float rollSpeed = 6f;
+        float rollSpeed = 4f;
 
         if (player.isPerformingAction)
         {
